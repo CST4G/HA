@@ -24,8 +24,6 @@ namespace healthApp.Models {
         [DisplayName( "Account Type" )]
         public string acctType { get; set; }
 
-
-
         public static bool IsValid( string _username, string _password, AccountsDBContext db ) {
             Accounts user = db.Accounts.SingleOrDefault( account => account.Username == _username && account.Password == _password );
 

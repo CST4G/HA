@@ -37,9 +37,7 @@ namespace healthApp.Controllers {
         public ActionResult Login( Accounts model, string returnUrl ) {
 
             if ( Accounts.IsValid( model.Username, model.Password, db ) ) {
-                //ModelState.AddModelError("","Great fucking success fuck");
                 string accType = Accounts.findType( model.Username, model.Password, db );
-                //ModelState.AddModelError("", accType);
 
                 var profileData = new UserProfileObj( model.Username, accType );
 
@@ -47,8 +45,6 @@ namespace healthApp.Controllers {
 
                 UserProfileObj test = (UserProfileObj) this.Session["UserProfile"];
 
-                //ModelState.AddModelError("", test.Username);
-                //ModelState.AddModelError("", test.accType);
                 return RedirectToAction( "Index", "Home" );
             } else {
                 ModelState.AddModelError( "", "Invalid Login" );
