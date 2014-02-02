@@ -11,8 +11,6 @@ namespace healthApp.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-
-       
+        }      
     }
 }
