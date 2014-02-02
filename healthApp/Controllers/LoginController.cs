@@ -100,12 +100,14 @@ namespace healthApp.Controllers
             {
                 if (id == null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return RedirectToAction("Index");
+
                 }
                 Accounts accounts = db.Accounts.Find(id);
                 if (accounts == null)
                 {
-                    return HttpNotFound();
+                    return RedirectToAction("Index");
+
                 }
 
                 return View(accounts);
@@ -160,12 +162,14 @@ namespace healthApp.Controllers
             {
                 if (id == null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return RedirectToAction("Index");
+
                 }
                 Accounts accounts = db.Accounts.Find(id);
                 if (accounts == null)
                 {
-                    return HttpNotFound();
+                    return RedirectToAction("Index");
+
                 }
                 return View(accounts);
             }
@@ -206,12 +210,14 @@ namespace healthApp.Controllers
             {
                 if (id == null)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    return RedirectToAction("Index");
+
                 }
                 Accounts account = db.Accounts.Find(id);
                 if (account == null)
                 {
-                    return HttpNotFound();
+                    return RedirectToAction("Index");
+
                 }
                 return View(account);
             }

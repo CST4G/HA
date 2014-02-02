@@ -39,34 +39,7 @@ namespace healthApp.Models
 
             return (!(user == null));
 
-            /*
-            using (var cn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\Login\Login\App_Data\database.mdf;Integrated Security=True")) 
-            {
-                string _sql = @"SELECT [Username] FROM [dbo].[Accounts] " +
-                       @"WHERE [Username] = @u AND [Password] = @p";
-                var cmd = new SqlCommand(_sql, cn);
-                cmd.Parameters
-                    .Add(new SqlParameter("@u", SqlDbType.NVarChar))
-                    .Value = _username;
-                cmd.Parameters
-                    .Add(new SqlParameter("@p", SqlDbType.NVarChar))
-                    .Value = (_password);
-                cn.Open();
-                var reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    reader.Dispose();
-                    cmd.Dispose();
-                    return true;
-                }
-                else
-                {
-                    reader.Dispose();
-                    cmd.Dispose();
-                    return false;
-                }
-            }
-             * */
+        
         }
 
         public static string findType(string _username, string _password, AccountsDBContext db)
@@ -76,44 +49,13 @@ namespace healthApp.Models
 
             return user.acctType;
 
-            /*
-            using (var cn = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=H:\Login\Login\App_Data\database.mdf;Integrated Security=True"))
-            {
-                string _sql = @"SELECT [acctType] FROM [dbo].[Accounts] " +
-                       @"WHERE [Username] = @u AND [Password] = @p";
-                var cmd = new SqlCommand(_sql, cn);
-
-                
-                cmd.Parameters
-                    .Add(new SqlParameter("@u", SqlDbType.NVarChar))
-                    .Value = _username;
-                cmd.Parameters
-                    .Add(new SqlParameter("@p", SqlDbType.NVarChar))
-                    .Value = (_password);
-                
-                cn.Open();
-                var reader = cmd.ExecuteReader();
-
-                int i =0;
-                string test = "";
-                while (reader.Read())
-                {
-                    test += reader.GetString(i++);
-                }
-                return test;
-            }
-             * */
+           
         }
         
     }
 
 
-    /*
-    public class AccountsDBContext : DbContext
-    {
-        public DbSet<Accounts> Accounts { get; set; }
-    }
-    */
+   
     public class ApplicationUser : IdentityUser
     {
     }
