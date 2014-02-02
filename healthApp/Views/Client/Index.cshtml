@@ -5,7 +5,7 @@
 }
 
 <h2>Clients</h2> <b>@Html.ActionLink("Create New", "Create")</b>
-<table class="table" style="width:60%; text-align:center; position:absolute; margin-left:210px; margin-top:100px;" border="1">
+<table class="table" border="1">
 @foreach (var item in Model) {
     <tr>
         <th colspan="3" style="background-color:#d2d5ca"></th>
@@ -15,7 +15,7 @@
             <b>@Html.DisplayFor(model => item.ClientFirstName) @Html.DisplayFor(model => item.ClientLastName)</b>
         </td>
         <td rowspan="3" style="width:10%">
-            <img src="@Url.Content("Client/ViewImage/" + @Html.DisplayFor(model => item.ClientID))" style="height: 98px; width: 103px" />
+            <img src="@Url.Content("~/Client/ViewImage/" + @Html.DisplayFor(model => item.ClientID))" style="height: 98px; width: 103px" />
         </td>
     </tr>
     <tr>
@@ -79,5 +79,26 @@
         </td>
     </tr>
 }
-
+    
 </table>
+<script>
+    var sort = "~/Client/Sort/"+ $('#sort').val();
+    $('#sorter').get(0).setAttribute('action', s);
+    $(function () {
+        $(".auto_submit_form").change(function () {
+            this.submit();
+        });
+    });
+    
+    $('form').get(0).setAttribute('action', 'baz')
+</script>
+<form  id="sorter">
+    <select id="sort">
+        <option value="1">FirstName</option>
+        <option value="2">LastName</option>
+        <option value="3">BedNumber</option>
+        <option value="4">DOB</option>
+    </select>
+</form>
+
+<a href="~/Client/Index/1">FirstName</a>

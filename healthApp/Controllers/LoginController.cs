@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using System.Web.Security;
 
 namespace healthApp.Controllers
 {
@@ -46,23 +47,21 @@ namespace healthApp.Controllers
         // POST: /Login/Login
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(Accounts model, string returnUrl)
+        public ActionResult Login(Credentials model, string returnUrl)
         {
 
-            if (Accounts.IsValid(model.Username, model.Password, db))
+            if (Accounts.IsValid(model.UserName, model.Password, db))
             {
-                //ModelState.AddModelError("","Great fucking success fuck");
-                string accType = Accounts.findType(model.Username, model.Password, db);
-                //ModelState.AddModelError("", accType);
+                
+                string accType = Accounts.findType(model.UserName, model.Password, db);
+              
 
-                var profileData = new UserProfileObj(model.Username, accType);
+                var profileData = new UserProfileObj(model.UserName, accType);
 
                 Session["UserProfile"] = profileData;
+               
 
-                UserProfileObj test = (UserProfileObj)this.Session["UserProfile"];
-
-                //ModelState.AddModelError("", test.Username);
-                //ModelState.AddModelError("", test.accType);
+             
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -134,8 +133,10 @@ namespace healthApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,Username,Password,fName,lName,acctType")] Accounts accounts)
+        public ActionResult Create([Bind(Include="ID,UserName,Password,fName,lName,acctType")] Credentials credential)
         {
+            Accounts accounts = Accounts.createFromCredential(credential);
+
             if (hasAccess())
             {
                 if (ModelState.IsValid)
@@ -184,8 +185,9 @@ namespace healthApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,Username,Password,fName,lName,acctType")] Accounts accounts)
+        public ActionResult Edit([Bind(Include = "ID,UserName,Password,fName,lName,acctType")] Credentials credential)
         {
+            Accounts accounts = Accounts.createFromCredential(credential);
             if (hasAccess())
             {
                 if (ModelState.IsValid)

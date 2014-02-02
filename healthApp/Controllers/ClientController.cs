@@ -16,14 +16,22 @@ namespace healthApp.Controllers
         private ClientDBContext db = new ClientDBContext();
 
         // GET: /Clients/
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             if (hasAccess())
             {
-                return View(db.Client.ToList());
+                if (id.HasValue)
+                {
+                    return View(Sort(id));
+                }
+                else 
+                {
+                    return View(db.Client.ToList());
+                }
             }
             return RedirectToAction("Index", "Home");
         }
+   
         public bool hasAccess()
         { 
             return ((Session["UserProfile"] != null) && (
@@ -31,7 +39,24 @@ namespace healthApp.Controllers
             ((UserProfileObj)Session["UserProfile"]).accType ==  "admin"));
 
         }
-
+         [HttpGet]
+        public IEnumerable<Client> Sort(int? id)
+        {
+            
+            switch (id)
+            {
+                case 1:
+                    return  db.Client.ToList().OrderBy(profile => profile.ClientFirstName);
+                case 2:
+                    return  db.Client.ToList().OrderBy(profile =>profile.ClientLastName);
+                case 3:
+                    return db.Client.ToList().OrderBy(profile => profile.ClientDOB);
+                case 4:
+                    return db.Client.ToList().OrderBy(profile => profile.ClientBedNum);
+                default:
+                    return db.Client.ToList();
+            }
+        }
 
         public ActionResult UploadPicture(int? id)
         {
