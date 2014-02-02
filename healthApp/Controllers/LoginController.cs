@@ -67,14 +67,14 @@ namespace healthApp.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Invalid Login");
+                return View();
             }
 
             
 
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            
         }
 
 
