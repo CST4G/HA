@@ -5,50 +5,62 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Login</title>
-  
+
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-            </div>
-           @{
-               string username;
-               if (Session["UserProfile"] == null) 
-               { 
-                   username = null; 
-               } else
-               {
-                   username = ((UserProfileObj)Session["UserProfile"]).Username;
-               }
-              
-               if (username  != null){
-                    ViewBag.UserName = username;
-                   @Html.Partial("_LoggedInPartial");
-               }
-               else
-               {
-                   @Html.Partial("_NotLoggedInPartial");
-                 
-               }
-            }
-          
-        </div>
-     </div>
-    
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Health App Bitches</p>
-        </footer>
-    </div>
+    <div class="container">
+        <div class="row row-offcanvas row-offcanvas-left">
 
-  
+            <!-- collapsable sidebar -->
+            <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 sidebar-offcanvas" id="sidebar" role="navigation">
+                <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </div>
+            <!-- end collapsable sidebar -->
+            <div class="container body-content col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                @{
+                    string username;
+                    if (Session["UserProfile"] == null)
+                    {
+                        username = null;
+                    }
+                    else
+                    {
+                        username = ((UserProfileObj)Session["UserProfile"]).Username;
+                    }
+
+                    if (username != null)
+                    {
+                        ViewBag.UserName = username;
+                        @Html.Partial("_LoggedInPartial");
+                    }
+                    else
+                    {
+                        @Html.Partial("_NotLoggedInPartial");
+
+                    }
+                }
+                @RenderBody()
+            </div>
+        </div>
+       
+           
+       
+    </div>
+    
+
+
+    
+
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
