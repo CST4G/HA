@@ -84,6 +84,7 @@
 <script>
     var sort = "~/Client/Sort/"+ $('#sort').val();
     $('#sorter').get(0).setAttribute('action', s);
+
     $(function () {
         $(".auto_submit_form").change(function () {
             this.submit();
@@ -92,6 +93,7 @@
     
     $('form').get(0).setAttribute('action', 'baz')
 </script>
+
 <form  id="sorter">
     <select id="sort">
         <option value="1">FirstName</option>
