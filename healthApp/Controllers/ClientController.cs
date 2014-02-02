@@ -18,7 +18,11 @@ namespace healthApp.Controllers
         // GET: /Clients/
         public ActionResult Index()
         {
-            return View(db.Client.ToList());
+            if (hasAccess())
+            {
+                return View(db.Client.ToList());
+            }
+            return RedirectToAction("Index", "Home");
         }
         public bool hasAccess()
         { 
