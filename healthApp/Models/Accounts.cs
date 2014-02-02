@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using DevOne.Security.Cryptography.BCrypt;
 
 namespace healthApp.Models {
     public class Accounts {
@@ -17,7 +18,10 @@ namespace healthApp.Models {
         public string Username { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public string encryptedPassword { get; set; }
+
+        [Required]
+        public string salt { get; set; }
 
         [DisplayName( "First Name" )]
         public string fName { get; set; }
@@ -29,10 +33,35 @@ namespace healthApp.Models {
         [DisplayName( "Account Type" )]
         public string acctType { get; set; }
 
-        public static bool IsValid( string _username, string _password, AccountsDBContext db ) {
-            Accounts user = db.Accounts.SingleOrDefault( account => account.Username == _username && account.Password == _password );
+        public static Accounts createFromCredential(Credentials credential)
+        {
+            Accounts account = new Accounts();
+            account.acctType = credential.acctType;
+            account.fName = credential.fName;
+            account.lName = credential.lName;
+            account.Username = credential.UserName;
+            account.ID = credential.ID;
 
-            return (!(user == null));
+            account.salt = BCryptHelper.GenerateSalt();
+            account.encryptedPassword = BCryptHelper.HashPassword(credential.Password, account.salt);
+            return account;
+ 
+        }
+
+        public static bool IsValid( string _username, string _password, AccountsDBContext db ) {
+
+            
+
+            Accounts user = db.Accounts.SingleOrDefault( account => account.Username == _username);
+            if (user != null)
+            {
+                string hashed = BCryptHelper.HashPassword(_password, user.salt);
+
+                return (hashed == user.encryptedPassword);
+               
+            }
+
+            return false;
         }
 
         public static string findType( string _username, string _password, AccountsDBContext db ) {
