@@ -5,6 +5,14 @@
 }
 
 <h2>Clients</h2> <b>@Html.ActionLink("Create New", "Create")</b>
+<br /><p>Sort by:</p></table>
+<select id="dynamic_select">
+    <option value=""></option>
+    <option value="1">FirstName</option>
+    <option value="2">LastName</option>
+    <option value="3">BedNumber</option>
+    <option value="4">DOB</option>
+</select>
 <table class="table" border="1">
 @foreach (var item in Model) {
     <tr>
@@ -80,27 +88,19 @@
     </tr>
 }
     
-</table>
-<script>
-    var sort = "~/Client/Sort/"+ $('#sort').val();
-    $('#sorter').get(0).setAttribute('action', s);
 
+
+<script>
     $(function () {
-        $(".auto_submit_form").change(function () {
-            this.submit();
+        // bind change event to select
+        $('#dynamic_select').bind('change', function () {
+            var url = "/Client/Index/" + $(this).val(); // get selected value
+            if (url) { // require a URL
+                window.location = url; // redirect
+            }
+            return false;
         });
     });
-    
-    $('form').get(0).setAttribute('action', 'baz')
 </script>
 
-<form  id="sorter">
-    <select id="sort">
-        <option value="1">FirstName</option>
-        <option value="2">LastName</option>
-        <option value="3">BedNumber</option>
-        <option value="4">DOB</option>
-    </select>
-</form>
 
-<a href="~/Client/Index/1">FirstName</a>

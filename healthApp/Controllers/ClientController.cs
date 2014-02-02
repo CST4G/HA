@@ -50,9 +50,9 @@ namespace healthApp.Controllers
                 case 2:
                     return  db.Client.ToList().OrderBy(profile =>profile.ClientLastName);
                 case 3:
-                    return db.Client.ToList().OrderBy(profile => profile.ClientDOB);
-                case 4:
                     return db.Client.ToList().OrderBy(profile => profile.ClientBedNum);
+                case 4:
+                    return db.Client.ToList().OrderBy(profile => profile.ClientDOB);
                 default:
                     return db.Client.ToList();
             }
