@@ -26,6 +26,7 @@
             </div>
             <!-- end collapsable sidebar -->
             <div class="container body-content col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                <!-- Check if user has session -->
                 @{
                     string username;
                     if (Session["UserProfile"] == null)
@@ -47,20 +48,12 @@
                         @Html.Partial("_NotLoggedInPartial");
 
                     }
+                    <!-- End check if user has session -->
                 }
                 @RenderBody()
             </div>
         </div>
-       
-           
-       
     </div>
-    
-
-
-    
-
-
     @RenderSection("scripts", required: false)
 </body>
 </html>
