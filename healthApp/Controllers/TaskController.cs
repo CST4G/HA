@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using healthApp.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using healthApp.Models;
 
 namespace healthApp.Controllers
 {
     public class TaskController : Controller
     {
         private TaskDBContext db = new TaskDBContext();
-        private TaskDBContext dbToday = new TaskDBContext();
 
         // GET: /Task/
         public ActionResult Index()
@@ -60,29 +56,8 @@ namespace healthApp.Controllers
                 sc.RoomNo = item.RoomNo;
                 sc.duration = item.duration;
                 sc.tDate = DateTime.Today + item.dtStart.TimeOfDay;
-                dbToday.Sched.Add(sc);
-                dbToday.SaveChanges();
-            }
-            return View(db.Tasks.ToList());
-        }
-
-        // delete all previous record's from today's schedule
-        public ActionResult clearSchedule()
-        {
-            var todayt = from s in dbToday.Sched
-                         where s.tDate == DateTime.Today
-                         select s;
-            foreach (var task in todayt)
-            {
-                dbToday.Sched.Remove(task);
-            }
-            try
-            {
-                dbToday.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
+                db.Sched.Add(sc);
+                db.SaveChanges();
             }
             return View(db.Tasks.ToList());
         }
@@ -112,7 +87,6 @@ namespace healthApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,PatientID,RoomNo,Task,duration,dtStart,dtEnd,freq,interval,count,byDay,byMonthDay")] Tasks tasks)
         {
             if (ModelState.IsValid)
@@ -144,7 +118,6 @@ namespace healthApp.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,PatientID,RoomNo,Task,duration,dtStart,dtEnd,freq,interval,count,byDay,byMonthDay")] Tasks tasks)
         {
             if (ModelState.IsValid)
@@ -173,7 +146,6 @@ namespace healthApp.Controllers
 
         // POST: /Task/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Tasks tasks = db.Tasks.Find(id);

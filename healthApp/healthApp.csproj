@@ -207,7 +207,6 @@
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Schedule\TaskComplete.cshtml" />
     <Content Include="Views\Shared\_LayoutMobile.cshtml" />
-    <Content Include="Views\Task\clearSchedule.cshtml" />
     <Content Include="Views\Task\Create.cshtml" />
     <Content Include="Views\Task\Delete.cshtml" />
     <Content Include="Views\Task\Details.cshtml" />
