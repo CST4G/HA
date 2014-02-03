@@ -88,7 +88,11 @@ body {
     border-bottom-color: #fff;
   }
 
-    #navigation {
+    #sidebar {
         height:1000px;
+    }
+
+    .navbar-toggle {
+        float: left;
     }
 }
