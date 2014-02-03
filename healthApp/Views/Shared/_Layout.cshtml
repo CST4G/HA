@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Login</title>
-  
+
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
@@ -16,39 +16,60 @@
         <div class="container">
             <div class="navbar-header">
             </div>
-           @{
-               string username;
-               if (Session["UserProfile"] == null) 
-               { 
-                   username = null; 
-               } else
-               {
-                   username = ((UserProfileObj)Session["UserProfile"]).Username;
-               }
-              
-               if (username  != null){
+            @{
+                string username;
+                if (Session["UserProfile"] == null)
+                {
+                    username = null;
+                }
+                else
+                {
+                    username = ((UserProfileObj)Session["UserProfile"]).Username;
+                }
+
+                if (username != null)
+                {
                     ViewBag.UserName = username;
-                   @Html.Partial("_LoggedInPartial");
-               }
-               else
-               {
-                   @Html.Partial("_NotLoggedInPartial");
-                 
-               }
+                    @Html.Partial("_LoggedInPartial");
+                }
+                else
+                {
+                    @Html.Partial("_NotLoggedInPartial");
+
+                }
             }
-          
+
         </div>
-     </div>
-    
+    </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Health App Bitches</p>
         </footer>
+
+
     </div>
 
-  
+
     @RenderSection("scripts", required: false)
+    @{
+        if (Session["UserProfile"] == null)
+        {
+            username = null;
+        }
+        else
+        {
+            username = ((UserProfileObj)Session["UserProfile"]).Username;
+        }
+        if (username != null)
+        {
+            <script src="~/Scripts/myScript.js"></script>
+            Html.RenderAction("chatPartial", "Chat");
+        }
+    }
+
+
 </body>
 </html>
