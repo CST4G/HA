@@ -21,6 +21,17 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#">Health App</a>
+                <br />
+                @{
+                    if (Session["UserProfile"] == null)
+                    {
+                        @Html.Partial("_NotLoggedInPartial");
+                    }
+                    else
+                    {
+                        @Html.Partial("_LoggedInPartial");
+                    }
+                }
             </div>
         </div>
     </div>
@@ -38,28 +49,6 @@
             </div>
             <!-- end collapsable sidebar -->
             <div class="container body-content col-lg-6 col-md-6 col-xs-6 col-sm-6">
-                @{
-                    string username;
-                    if (Session["UserProfile"] == null)
-                    {
-                        username = null;
-                    }
-                    else
-                    {
-                        username = ((UserProfileObj)Session["UserProfile"]).Username;
-                    }
-
-                    if (username != null)
-                    {
-                        ViewBag.UserName = username;
-                        @Html.Partial("_LoggedInPartial");
-                    }
-                    else
-                    {
-                        @Html.Partial("_NotLoggedInPartial");
-
-                    }
-                }
                 @RenderBody()
             </div>
         </div>
