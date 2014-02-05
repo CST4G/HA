@@ -52,6 +52,7 @@ namespace healthApp.Models
             return validationResult;
         }
     }
+    
 
 
     //A ValidationAttribute that checks for the valid types of frequency's in a task's iCal implementation
