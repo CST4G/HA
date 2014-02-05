@@ -1,5 +1,4 @@
 ﻿@model healthApp.Models.Tasks
-
 @{
     ViewBag.Title = "Create";
 }
@@ -21,14 +20,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PatientID)
                 @Html.ValidationMessageFor(model => model.PatientID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RoomNo, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RoomNo)
-                @Html.ValidationMessageFor(model => model.RoomNo)
             </div>
         </div>
 
