@@ -5,14 +5,7 @@
 }
 
 <h2>Clients</h2> <b>@Html.ActionLink("Create New", "Create")</b>
-<br /><p>Sort by:</p></table>
-<select id="dynamic_select">
-    <option value=""></option>
-    <option value="1">FirstName</option>
-    <option value="2">LastName</option>
-    <option value="3">BedNumber</option>
-    <option value="4">DOB</option>
-</select>
+
 <table class="table" border="1">
 @foreach (var item in Model) {
     <tr>

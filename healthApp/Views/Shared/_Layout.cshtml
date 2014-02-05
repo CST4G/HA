@@ -40,12 +40,14 @@
 
             <!-- collapsable sidebar -->
             <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 sidebar-offcanvas" id="sidebar" role="navigation">
-                <ul class="nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Link 1</a></li>
-                    <li><a href="#">Link 2</a></li>
-                    <li><a href="#">Link 3</a></li>
-                </ul>
+                @{
+                    if (String.Equals(ViewBag.Sidebar, "Client", StringComparison.Ordinal))
+                    {
+                        @Html.Partial("_Client");
+
+                    }
+
+                }
             </div>
             <!-- end collapsable sidebar -->
             <div class="container body-content col-lg-6 col-md-6 col-xs-6 col-sm-6">

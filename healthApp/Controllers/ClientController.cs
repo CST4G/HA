@@ -18,6 +18,7 @@ namespace healthApp.Controllers
         // GET: /Clients/
         public ActionResult Index(int? id)
         {
+            @ViewBag.Sidebar = "Client";
             if (hasAccess())
             {
                 if (id.HasValue)
