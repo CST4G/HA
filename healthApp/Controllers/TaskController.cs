@@ -57,8 +57,9 @@ namespace healthApp.Controllers
                 sc.duration = item.duration;
                 sc.tDate = DateTime.Today + item.dtStart.TimeOfDay;
                 db.Sched.Add(sc);
-                db.SaveChanges();
             }
+
+            db.SaveChanges();
             return View(db.Tasks.ToList());
         }
 
