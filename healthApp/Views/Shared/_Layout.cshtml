@@ -12,64 +12,47 @@
     @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Health App</a>
+                <br />
+                @{
+                    if (Session["UserProfile"] == null)
+                    {
+                        @Html.Partial("_NotLoggedInPartial");
+                    }
+                    else
+                    {
+                        @Html.Partial("_LoggedInPartial");
+                    }
+                }
             </div>
-            @{
-                string username;
-                if (Session["UserProfile"] == null)
-                {
-                    username = null;
-                }
-                else
-                {
-                    username = ((UserProfileObj)Session["UserProfile"]).Username;
-                }
-
-                if (username != null)
-                {
-                    ViewBag.UserName = username;
-                    @Html.Partial("_LoggedInPartial");
-                }
-                else
-                {
-                    @Html.Partial("_NotLoggedInPartial");
-
-                }
-            }
-
         </div>
     </div>
+    <div class="container">
+        <div class="row row-offcanvas row-offcanvas-left">
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Health App</p>
-        </footer>
-
-
+            <!-- collapsable sidebar -->
+            <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 sidebar-offcanvas" id="sidebar" role="navigation">
+                <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </div>
+            <!-- end collapsable sidebar -->
+            <div class="container body-content col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                @RenderBody()
+            </div>
+        </div>
     </div>
-
-
     @RenderSection("scripts", required: false)
-    @{
-        if (Session["UserProfile"] == null)
-        {
-            username = null;
-        }
-        else
-        {
-            username = ((UserProfileObj)Session["UserProfile"]).Username;
-        }
-        if (username != null)
-        {
-            <script src="~/Scripts/myScript.js"></script>
-            Html.RenderAction("chatPartial", "Chat");
-        }
-    }
-
-
 </body>
 </html>
