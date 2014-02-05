@@ -21,9 +21,7 @@ namespace healthApp.DAL
 
             var users = new List<Accounts>
             {
-                new Accounts{ID=1,Username="sysadmin",encryptedPassword=hash[0], salt=salts[0], fName="sysadmin",lName="diggity", acctType="sysadmin"},
-                new Accounts{ID=2,Username="admin",encryptedPassword=hash[1], salt=salts[1],fName="Not Hung",lName="Le", acctType="admin"},
-                new Accounts{ID=3,Username="Hung",encryptedPassword=hash[2], salt=salts[2],fName="Hung",lName="Le", acctType="staff"}
+                new Accounts{ID=1,Username="sysadmin",encryptedPassword=hash[0], salt=salts[0], fName="system",lName="admin", acctType="sysadmin"},
             };
 
             users.ForEach(s => context.Accounts.Add(s));
