@@ -31,6 +31,7 @@ namespace healthApp.Models
             {
                 query += "BETWEEN 16 AND 24";
             }
+            //query += "AND datepart(dd, DateAdded) =" + DateTime.Today.ToString();
             var sqlResults = db.Chats.SqlQuery(query);
             return  sqlResults.ToList(); 
         }
